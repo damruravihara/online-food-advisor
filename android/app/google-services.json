@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "22855890495",
+    "firebase_url": "https://onlinelegaladvisor-a6bbf-default-rtdb.firebaseio.com",
+    "project_id": "onlinelegaladvisor-a6bbf",
+    "storage_bucket": "onlinelegaladvisor-a6bbf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22855890495:android:0977cdc1d4f403b43b2a8a",
+        "android_client_info": {
+          "package_name": "com.onlinelegaladvisor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22855890495-c41o4lojdbipr1qf46k2adpkc544mm04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIcmHf2w9t03ricHg_jY6ZRceKyimNC84"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22855890495-c41o4lojdbipr1qf46k2adpkc544mm04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

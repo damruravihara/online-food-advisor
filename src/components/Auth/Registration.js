@@ -31,11 +31,9 @@ const Registration = () => {
             ToastAndroid.show("Enter Your Number", ToastAndroid.SHORT);
         }
         else {
-            console.log("sssssssssssssssssssssssssssssssssssssssss")
            await firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(() => {
                     const userId = auth().currentUser?.uid
-                    console.log("[[[[[[[[[[[[[[[[[[[[[[[[[[[[first]]]]]]]]]]]]]]]]]]]]]]]]]]]]")
                     database()
                         .ref('/users/' + userId)
                         .set({
@@ -125,7 +123,7 @@ const Registration = () => {
                             onPress={() => signin()}
                             underlayColor="#0084fffa"
                         >
-                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Sign In</Text>
+                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Sign Up</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{
@@ -137,10 +135,10 @@ const Registration = () => {
                                 alignItems: "center",
                                 borderRadius: 19,
                             }}
-                            onPress={() => navigation.navigate("Sign Up")}
+                            onPress={() => navigation.navigate("Login")}
                             underlayColor="#0084fffa"
                         >
-                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Sign Up</Text>
+                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Sign In</Text>
                         </TouchableOpacity>
                     </View>
                 </KeyboardAwareScrollView>

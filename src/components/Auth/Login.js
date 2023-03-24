@@ -12,44 +12,24 @@ const Login = () => {
 
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
     const navigation = useNavigation()
 
     const signin = async () => {
         if (name === "") {
-            ToastAndroid.show("Enter Your Name", ToastAndroid.SHORT);
-        }
-        else if (email === "") {
-            ToastAndroid.show("Enter Your Email", ToastAndroid.SHORT);
+            ToastAndroid.show("please fill email", ToastAndroid.SHORT);
         }
         else if (password === "") {
-            ToastAndroid.show("Enter Your Password", ToastAndroid.SHORT);
+            ToastAndroid.show("please enter password", ToastAndroid.SHORT);
         }
         else {
             auth()
-                .createUserWithEmailAndPassword(email, password)
+                .signInWithEmailAndPassword(email, password)
                 .then(() => {
-                    const userId = auth().currentUser?.uid
-
-                    database()
-                        .ref('/users/' + userId)
-                        .set({
-                            Name: name,
-                            Email: email,
-                        })
-                        .then(() => {
-                            ToastAndroid.show("User account created & signed in!", ToastAndroid.SHORT);
-                        });
+                    ToastAndroid.show("Success", ToastAndroid.SHORT);
                 })
                 .catch(error => {
-                    if (error.code === 'auth/email-already-in-use') {
-                        ToastAndroid.show("Email address is already in use!", ToastAndroid.LONG);
-                    }
-
-                    if (error.code === 'auth/invalid-email') {
-                        ToastAndroid.show("That email address is invalid!", ToastAndroid.LONG);
-                    }
-                });
+                    ToastAndroid.show("InCorrect Email or Password", ToastAndroid.LONG);
+                })
         }
     };
 
@@ -69,13 +49,6 @@ const Login = () => {
             <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
                 <KeyboardAwareScrollView style={{ paddingStart: 14, paddingEnd: 14, marginBottom: 20 }}>
                     <View>
-                        <Text style={styles.input_lable}>Name</Text>
-                        <TextInput
-                            style={styles.input_text}
-                            keyboardType='ascii-capable'
-                            placeholder="Enter your Name"
-                            onChangeText={(text) => setName(text)}
-                        ></TextInput>
                         <Text style={styles.input_lable}>Email</Text>
                         <TextInput
                             style={styles.input_text}
@@ -116,7 +89,7 @@ const Login = () => {
                                 alignItems: "center",
                                 borderRadius: 19,
                             }}
-                            onPress={() => navigation.navigate("Sign Up")}
+                            onPress={() => navigation.navigate("Registration")}
                             underlayColor="#0084fffa"
                         >
                             <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Sign Up</Text>

@@ -16,6 +16,7 @@ import TharushaRootNavigator from '../components/Tharusha/TharushaRootNavigator'
 import BottomNavigation from '../components/NavBar/BottomNavigation';
 import auth from '@react-native-firebase/auth';
 import Registration from '../components/Auth/Registration';
+import Login from '../components/Auth/Login';
 
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
@@ -25,14 +26,14 @@ const Stack = createNativeStackNavigator()
 
 export default class RootNavigator extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
-        this.state ={
+        this.state = {
             userData: ""
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.userStateChange = auth().onAuthStateChanged(user => {
             this.setState({
                 userData: user
@@ -40,19 +41,19 @@ export default class RootNavigator extends Component {
         })
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.userStateChange
     }
-    
-    
+
+
     render() {
-        if(this.state.userData){
+        if (this.state.userData) {
             return (
                 <View style={{ flex: 1, width: "100%", height: "100%" }}>
                     <PaperProvider theme={CombinedDefaultTheme}>
                         <NavigationContainer theme={CombinedDefaultTheme}>
-                            <Stack.Navigator screenOptions={{ headerShown: false}}>
-                                <Stack.Screen name='BottomNavigation' component={BottomNavigation}/>
+                            <Stack.Navigator screenOptions={{ headerShown: false }}>
+                                <Stack.Screen name='BottomNavigation' component={BottomNavigation} />
                                 {/* <Stack.Screen name="TharushaRootNavigator" component={TharushaRootNavigator} /> */}
                             </Stack.Navigator>
                         </NavigationContainer>
@@ -64,8 +65,9 @@ export default class RootNavigator extends Component {
             <View style={{ flex: 1, width: "100%", height: "100%" }}>
                 <PaperProvider theme={CombinedDefaultTheme}>
                     <NavigationContainer theme={CombinedDefaultTheme}>
-                        <Stack.Navigator screenOptions={{ headerShown: false}}>
-                            <Stack.Screen name='Registration' component={Registration}/>
+                        <Stack.Navigator screenOptions={{ headerShown: false }}>
+                            <Stack.Screen name='Login' component={Login} />
+                            <Stack.Screen name='Registration' component={Registration} />
                             {/* <Stack.Screen name="TharushaRootNavigator" component={TharushaRootNavigator} /> */}
                         </Stack.Navigator>
                     </NavigationContainer>

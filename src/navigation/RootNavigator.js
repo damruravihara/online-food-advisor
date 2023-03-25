@@ -18,6 +18,7 @@ import Registration from '../components/Auth/Registration';
 import Login from '../components/Auth/Login';
 import AddQuestionNavigation from '../components/QuestionScreens/AddQuestionNavigation';
 import ProfileNavigation from '../components/UserProfileScreens/ProfileNavigation';
+import BlogNavigation from '../components/BlogScreens/BlogNavigation';
 
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
@@ -57,6 +58,7 @@ export default class RootNavigator extends Component {
                                 <Stack.Screen name='BottomNavigation' component={BottomNavigation} />
                                 <Stack.Screen name="AddQuestionNavigation" component={AddQuestionNavigation} />
                                 <Stack.Screen name="ProfileNavigation" component={ProfileNavigation} />
+                                <Stack.Screen name="BlogNavigation" component={BlogNavigation} />
                             </Stack.Navigator>
                         </NavigationContainer>
                     </PaperProvider>

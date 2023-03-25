@@ -11,6 +11,8 @@ import AddQuestionNavigation from '../QuestionScreens/AddQuestionNavigation';
 import AddNewQuestion from '../QuestionScreens/AddNewQuestion';
 import MyQuestions from '../QuestionScreens/MyQuestions';
 import MyProfileScreen from '../UserProfileScreens/MyProfileScreen';
+import ArticleList from '../BlogScreens/ArticleList';
+import BlogNavigation from '../BlogScreens/BlogNavigation';
 
 
 
@@ -54,10 +56,10 @@ export default class BottomNavigation extends Component {
                     }}
                 />
                 <Tab.Screen
-                    name="MyQuestions"
-                    component={MyQuestions}
+                    name="BlogNavigation"
+                    component={BlogNavigation}
                     options={{
-                        title: "My Questions",
+                        title: "Blog",
                         tabBarIcon: ({ color }) => (
                             <Zocial name="blogger" color={color} size={20} />
                         ),

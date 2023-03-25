@@ -9,6 +9,9 @@ const adminMenu = [
     {
         id: 1, name: 'Update My Profile'
     },
+    {
+        id: 5, name: 'My Questions'
+    },
     // {
     //     id: 2, name: 'Remove Profile'
     // },
@@ -17,12 +20,15 @@ const adminMenu = [
     },
     {
         id: 4, name: 'Log Out'
-    }
+    },
 ]
 
 const userMenu = [
     {
         id: 1, name: 'Update My Profile'
+    },
+    {
+        id: 5, name: 'My Questions'
     },
     // {
     //     id: 2, name: 'Remove Profile'
@@ -142,6 +148,11 @@ const MyProfileScreen = ({ navigation }) => {
             case 3:
                 navigation.navigate("ProfileNavigation", {
                     screen: "UserManagement",
+                })
+                break;
+            case 5:
+                navigation.navigate("AddQuestionNavigation", {
+                    screen: "MyQuestions",
                 })
                 break;
             default:

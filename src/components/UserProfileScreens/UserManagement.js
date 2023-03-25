@@ -13,7 +13,7 @@ const UserManagement = ({ navigation }) => {
 
     useEffect(() => {
         setUserID(firebase.auth().currentUser?.uid)
-    })
+    }, [])
 
     useEffect(() => {
         const onValueChange = database()

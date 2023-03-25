@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "OnlineLegalAdvisor.app"
-               BlueprintName = "OnlineLegalAdvisor"
-               ReferencedContainer = "container:OnlineLegalAdvisor.xcodeproj">
+               BuildableName = "ruhunu-life.app"
+               BlueprintName = "ruhunu-life"
+               ReferencedContainer = "container:ruhunu-life.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "OnlineLegalAdvisorTests.xctest"
                BlueprintName = "OnlineLegalAdvisorTests"
-               ReferencedContainer = "container:OnlineLegalAdvisor.xcodeproj">
+               ReferencedContainer = "container:ruhunu-life.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "OnlineLegalAdvisor.app"
-            BlueprintName = "OnlineLegalAdvisor"
-            ReferencedContainer = "container:OnlineLegalAdvisor.xcodeproj">
+            BuildableName = "ruhunu-life.app"
+            BlueprintName = "ruhunu-life"
+            ReferencedContainer = "container:ruhunu-life.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "OnlineLegalAdvisor.app"
-            BlueprintName = "OnlineLegalAdvisor"
-            ReferencedContainer = "container:OnlineLegalAdvisor.xcodeproj">
+            BuildableName = "ruhunu-life.app"
+            BlueprintName = "ruhunu-life"
+            ReferencedContainer = "container:ruhunu-life.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

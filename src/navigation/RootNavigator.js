@@ -17,6 +17,7 @@ import auth from '@react-native-firebase/auth';
 import Registration from '../components/Auth/Registration';
 import Login from '../components/Auth/Login';
 import AddQuestionNavigation from '../components/QuestionScreens/AddQuestionNavigation';
+import ProfileNavigation from '../components/UserProfileScreens/ProfileNavigation';
 
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
@@ -55,6 +56,7 @@ export default class RootNavigator extends Component {
                             <Stack.Navigator screenOptions={{ headerShown: false }}>
                                 <Stack.Screen name='BottomNavigation' component={BottomNavigation} />
                                 <Stack.Screen name="AddQuestionNavigation" component={AddQuestionNavigation} />
+                                <Stack.Screen name="ProfileNavigation" component={ProfileNavigation} />
                             </Stack.Navigator>
                         </NavigationContainer>
                     </PaperProvider>

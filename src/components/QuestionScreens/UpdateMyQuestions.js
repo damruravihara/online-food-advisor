@@ -11,7 +11,7 @@ import moment from 'moment/moment';
 
 const UserID = firebase.auth().currentUser?.uid
 
-export default class AddNewQuestion extends Component {
+export default class UpdateMyQuestions extends Component {
 
 
     constructor(props) {
@@ -19,10 +19,10 @@ export default class AddNewQuestion extends Component {
 
         this.state = {
             showModel: false,
-            title: "",
-            description: "",
+            title: this.props.route.params.question.title,
+            description: this.props.route.params.question.description,
             category: [],
-            selectedCategory: "",
+            selectedCategory: this.props.route.params.question.categoryName,
             openPicker: false
         }
 
@@ -30,6 +30,7 @@ export default class AddNewQuestion extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props.route.params.question)
         this.getFilterList()
 
     }
@@ -84,10 +85,10 @@ export default class AddNewQuestion extends Component {
                         <View>
                             <List.Item
                                 style={{ marginTop: 10, marginBottom: 20 }}
-                                title={"Submitted!"}
+                                title={"Updated!"}
                                 titleNumberOfLines={1}
                                 titleStyle={[{ fontSize: 20, fontWeight: '800', textAlign: 'center', color: 'black' }]}
-                                description={"Your Questions Submitted Successfully"}
+                                description={"Your Question Updated Successfully"}
                                 descriptionNumberOfLines={2}
                                 descriptionStyle={[{ fontSize: 16, textAlign: 'center', color: 'black', marginTop: 10 }]}
                             />
@@ -99,27 +100,20 @@ export default class AddNewQuestion extends Component {
     }
 
     onSubmit = async () => {
-        const key = uuidv4()
         database()
-            .ref(`/questions/${key}`)
-            .set({
+            .ref(`/questions/${this.props.route.params.question.key}`)
+            .update({
                 categoryName: this.state.selectedCategory,
-                createdBy: UserID,
                 description: this.state.description,
                 title: this.state.title,
-                createdDate: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                key: key
             })
             .then(() => {
                 database()
-                    .ref(`/userwisequestion/${UserID}/${key}`)
-                    .set({
+                    .ref(`/userwisequestion/${UserID}/${this.props.route.params.question.key}`)
+                    .update({
                         categoryName: this.state.selectedCategory,
-                        createdBy: UserID,
                         description: this.state.description,
                         title: this.state.title,
-                        createdDate: moment().format('MMMM Do YYYY, h:mm:ss a'),
-                        key: key
                     })
                     .then(() => {
 
@@ -130,7 +124,7 @@ export default class AddNewQuestion extends Component {
                             this.setState({
                                 showModel: false
                             }, () => {
-                                this.props.navigation.popToTop();
+                                this.props.navigation.goBack();
                             })
                         }, 1000)
                     })
@@ -156,14 +150,13 @@ export default class AddNewQuestion extends Component {
                         <Ionicons color={"rgba(114, 120, 245, 1)"} size={26} name={"chevron-back"} />
                     </TouchableOpacity>
                     <View style={{ width: '60%', height: 70, justifyContent: 'center', alignItems: 'flex-start' }}>
-                        <Text style={{ color: 'rgba(114, 120, 245, 1)', fontWeight: 'bold', fontSize: 20, paddingStart: 5 }}>{'Add New Question'}</Text>
+                        <Text style={{ color: 'rgba(114, 120, 245, 1)', fontWeight: 'bold', fontSize: 20, paddingStart: 5 }}>{'Update My Question'}</Text>
                     </View>
                 </View>
                 <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
                     <KeyboardAwareScrollView style={{ paddingHorizontal: 20, marginBottom: 20 }}>
                         <View>
                             <Text style={styles.input_lable}>Category</Text>
-
                             <DropDownPicker
                                 open={this.state.openPicker}
                                 value={this.state.selectedCategory}
@@ -183,12 +176,14 @@ export default class AddNewQuestion extends Component {
                         <TextInput
                             mode='outlined'
                             placeholder="Enter your Title"
+                            value={this.state.title}
                             onChangeText={(text) => this.setState({ title: text })}
                         ></TextInput>
                         <Text style={styles.input_lable}>Description</Text>
                         <TextInput
                             mode='outlined'
                             placeholder="Enter your Description"
+                            value={this.state.description}
                             onChangeText={(text) => this.setState({ description: text })}
                         ></TextInput>
                         <TouchableOpacity
@@ -205,10 +200,9 @@ export default class AddNewQuestion extends Component {
                             underlayColor="#0084fffa"
                             disabled={!this.state.selectedCategory || !this.state.description || !this.state.title}
                         >
-                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Submit Question</Text>
+                            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#fff" }}>Update Question</Text>
                         </TouchableOpacity>
                     </KeyboardAwareScrollView>
-
                 </ImageBackground>
             </View>
         )

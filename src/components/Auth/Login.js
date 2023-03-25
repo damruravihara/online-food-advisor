@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ImageBackground, TextInput, ToastAndroid, StyleSheet, StatusBar } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, ToastAndroid, StyleSheet, StatusBar } from 'react-native'
 import React from 'react'
 // import { getAuth, signInWithEmailAndPassword } from "@react-native-firebase/auth";
 import auth from '@react-native-firebase/auth';
@@ -6,16 +6,17 @@ import database from '@react-native-firebase/database';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
+import { TextInput } from 'react-native-paper';
 
 
 const Login = () => {
 
-    const [name, setName] = React.useState("");
+    const [password, setPassword] = React.useState("");
     const [email, setEmail] = React.useState("");
     const navigation = useNavigation()
 
     const signin = async () => {
-        if (name === "") {
+        if (email === "") {
             ToastAndroid.show("please fill email", ToastAndroid.SHORT);
         }
         else if (password === "") {
@@ -54,12 +55,14 @@ const Login = () => {
                             style={styles.input_text}
                             keyboardType="email-address"
                             placeholder="Enter your email"
+                            mode='outlined'
                             onChangeText={(text) => setEmail(text)}
                         ></TextInput>
                         <Text style={styles.input_lable}>Password</Text>
                         <TextInput
                             style={styles.input_text}
                             secureTextEntry={true}
+                            mode='outlined'
                             placeholder="Enter your password"
                             onChangeText={(text) => setPassword(text)}
                         ></TextInput>
@@ -119,14 +122,8 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16,
     },
-    input_text: {
-        borderColor: "#67afff",
-        borderWidth: 1,
-        borderRadius: 10,
-        padding: 10,
-        paddingLeft: 10,
-        marginVertical: 5,
-    },
+    input_text: {}
+
 });
 
 export default Login

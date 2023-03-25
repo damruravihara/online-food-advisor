@@ -10,6 +10,7 @@ import QuestionsWithAnswers from '../AnswerScreens/QuestionsWithAnswers';
 import AddQuestionNavigation from '../QuestionScreens/AddQuestionNavigation';
 import AddNewQuestion from '../QuestionScreens/AddNewQuestion';
 import MyQuestions from '../QuestionScreens/MyQuestions';
+import MyProfileScreen from '../UserProfileScreens/MyProfileScreen';
 
 
 
@@ -64,8 +65,8 @@ export default class BottomNavigation extends Component {
                 />
 
                 <Tab.Screen
-                    name="TharushaRootNavigator4"
-                    component={TharushaRootNavigator}
+                    name="MyProfileScreen"
+                    component={MyProfileScreen}
                     options={{
                         title: "Profile",
                         tabBarIcon: ({ color }) => (

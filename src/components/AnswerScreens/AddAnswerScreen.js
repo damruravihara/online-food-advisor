@@ -6,7 +6,6 @@ import { Button, Card, List, TextInput } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment/moment';
 
 
 const UserID = firebase.auth().currentUser?.uid
@@ -39,7 +38,7 @@ export default class AddAnswerScreen extends Component {
                     questionTitle: this.props.route.params.data.title,
                     questionDescription: this.props.route.params.data.description,
                     categoryName: this.props.route.params.data.categoryName,
-                    createdDate: moment(this.props.route.params.data.createdDate).format('MMMM Do YYYY, h:mm:ss a'),
+                    createdDate: this.props.route.params.data.createdDate,
                     key: key
             })
             .then(() => {

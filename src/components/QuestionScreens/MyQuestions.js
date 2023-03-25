@@ -137,14 +137,14 @@ export default class MyQuestions extends Component {
                         fontWeight: '800', color: '#141222', marginHorizontal: '17%', marginVertical: 26,
                         textAlign: "center"
                     }]}>
-                        {"No Questions Found"}
+                        {"No My Questions Found"}
                     </Text>
                     <Text style={[{
                         fontSize: 14,
                         textAlign: "center",
                         fontWeight: '400', color: '#72819D', marginHorizontal: '12%'
                     }]}>
-                        {'Looks like there are no questions'}
+                        {"Looks like you haven't add any questions"}
                     </Text>
 
                 </View>

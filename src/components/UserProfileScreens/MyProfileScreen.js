@@ -12,9 +12,9 @@ const adminMenu = [
     {
         id: 5, name: 'My Questions'
     },
-    // {
-    //     id: 2, name: 'Remove Profile'
-    // },
+    {
+        id: 2, name: 'Remove Profile'
+    },
     {
         id: 3, name: "User Management"
     },
@@ -30,9 +30,9 @@ const userMenu = [
     {
         id: 5, name: 'My Questions'
     },
-    // {
-    //     id: 2, name: 'Remove Profile'
-    // },
+    {
+        id: 2, name: 'Remove Profile'
+    },
     {
         id: 4, name: 'Log Out'
     }
@@ -140,6 +140,10 @@ const MyProfileScreen = ({ navigation }) => {
                 setDialogTitle("Are you sure, Do You Want to Logout ?")
                 setShowDialog(true)
                 break;
+            case 5:
+                setDialogTitle("Are you sure, Do You Want to Remove this Account ?")
+                setShowDialog(true)
+                break;
             case 1:
                 navigation.navigate("ProfileNavigation", {
                     screen: "UpdateProfile",
@@ -175,6 +179,20 @@ const MyProfileScreen = ({ navigation }) => {
                     ToastAndroid.show("logOut", ToastAndroid.SHORT)
                 })
 
+        }
+        if(dialogTitle === "Are you sure, Do You Want to Remove this Account ?"){
+            firebase.auth()
+            .signOut()
+            .then(() => {
+                // setDialogTitle('Success')
+                // setDialogDescription('You have Successfully Logout')
+                // setShowModel(true)
+
+                // setTimeout(() => {
+                //     setShowModel(false)
+                // }, 1000)
+                ToastAndroid.show("profile deleted success", ToastAndroid.SHORT)
+            })
         }
 
     }

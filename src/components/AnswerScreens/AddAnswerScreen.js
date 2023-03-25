@@ -6,9 +6,8 @@ import { Button, Card, List, TextInput } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment/moment';
 
-
-const UserID = firebase.auth().currentUser?.uid
 
 export default class AddAnswerScreen extends Component {
 
@@ -19,21 +18,25 @@ export default class AddAnswerScreen extends Component {
             question: this.props.route.params.data,
             qID: 0,
             answer: '',
-            showModel: false
-
+            showModel: false,
+            UserID: firebase.auth().currentUser?.uid,
         }
+    }
 
-
+    componentDidMount(){
+        this.setState({
+            UserID: firebase.auth().currentUser?.uid
+        })
     }
 
     onSubmit = async () => {
         const key = uuidv4()
         database()
-            .ref(`/answers/${UserID}/${this.props.route.params.data.key}`)
+            .ref(`/answers/${this.state.UserID}/${this.props.route.params.data.key}`)
             .set({
                     questionBy: this.props.route.params.data.createdBy,
                     answer: this.state.answer,
-                    createdBy: UserID,
+                    createdBy: this.state.UserID,
                     question: this.props.route.params.data.createdBy,
                     questionTitle: this.props.route.params.data.title,
                     questionDescription: this.props.route.params.data.description,
@@ -47,7 +50,7 @@ export default class AddAnswerScreen extends Component {
                 .set({
                     questionBy: this.props.route.params.data.createdBy,
                     answer: this.state.answer,
-                    createdBy: UserID,
+                    createdBy: this.state.UserID,
                     question: this.props.route.params.data.createdBy,
                     questionTitle: this.props.route.params.data.title,
                     questionDescription: this.props.route.params.data.description,
@@ -62,7 +65,7 @@ export default class AddAnswerScreen extends Component {
                     .set({
                         questionBy: this.props.route.params.data.createdBy,
                         answer: this.state.answer,
-                        createdBy: UserID,
+                        createdBy: this.state.UserID,
                         question: this.props.route.params.data.createdBy,
                         questionTitle: this.props.route.params.data.title,
                         questionKey: this.props.route.params.data.key,

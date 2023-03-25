@@ -11,8 +11,6 @@ const Filter = [
     }
 ]
 
-const UserID = firebase.auth().currentUser?.uid
-
 export default class MyQuestions extends Component {
 
     constructor(props) {
@@ -31,6 +29,7 @@ export default class MyQuestions extends Component {
             },
             questionList: [],
             filteredQuestionList: [],
+            UserID: firebase.auth().currentUser?.uid,
 
         }
 
@@ -38,14 +37,17 @@ export default class MyQuestions extends Component {
     }
 
     componentDidMount() {
-        this.getQuestionList()
-        this.getFilterList()
-
+        this.setState({
+            UserID: firebase.auth().currentUser?.uid
+        }, ()=>{
+            this.getQuestionList()
+            this.getFilterList()
+        })
     }
 
     getQuestionList = () => {
         this.onValueChange = database()
-            .ref(`/userwisequestion/${UserID}`)
+            .ref(`/userwisequestion/${this.state.UserID}`)
             .on('value', snapshot => {
                 this.setState({
                     questionList: snapshot.val() !== null ? Object.values(snapshot.val()) : []

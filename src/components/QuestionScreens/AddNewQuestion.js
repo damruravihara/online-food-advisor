@@ -9,8 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import DropDownPicker from 'react-native-dropdown-picker';
 import moment from 'moment/moment';
 
-const UserID = firebase.auth().currentUser?.uid
-
 export default class AddNewQuestion extends Component {
 
 
@@ -23,14 +21,19 @@ export default class AddNewQuestion extends Component {
             description: "",
             category: [],
             selectedCategory: "",
-            openPicker: false
+            openPicker: false,
+            UserID: firebase.auth().currentUser?.uid,
         }
 
 
     }
 
     componentDidMount() {
-        this.getFilterList()
+        this.setState({
+            UserID: firebase.auth().currentUser?.uid
+        }, () => {
+            this.getFilterList()
+        })
 
     }
 
@@ -104,7 +107,7 @@ export default class AddNewQuestion extends Component {
             .ref(`/questions/${key}`)
             .set({
                 categoryName: this.state.selectedCategory,
-                createdBy: UserID,
+                createdBy: this.state.UserID,
                 description: this.state.description,
                 title: this.state.title,
                 createdDate: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -112,10 +115,10 @@ export default class AddNewQuestion extends Component {
             })
             .then(() => {
                 database()
-                    .ref(`/userwisequestion/${UserID}/${key}`)
+                    .ref(`/userwisequestion/${this.state.UserID}/${key}`)
                     .set({
                         categoryName: this.state.selectedCategory,
-                        createdBy: UserID,
+                        createdBy: this.state.UserID,
                         description: this.state.description,
                         title: this.state.title,
                         createdDate: moment().format('MMMM Do YYYY, h:mm:ss a'),
@@ -168,7 +171,7 @@ export default class AddNewQuestion extends Component {
                                 open={this.state.openPicker}
                                 value={this.state.selectedCategory}
                                 items={this.renderListArray().map((value, index) => {
-                                    return {  label: value.name, value: value.name, key: index + 1, id: index + 1 }
+                                    return { label: value.name, value: value.name, key: index + 1, id: index + 1 }
 
                                 })}
                                 onPress={(open) => this.setState({ openPicker: open })}

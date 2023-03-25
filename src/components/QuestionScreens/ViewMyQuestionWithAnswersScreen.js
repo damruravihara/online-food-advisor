@@ -5,7 +5,6 @@ import { Button, Card, Divider, List } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 
-const UserID = firebase.auth().currentUser?.uid
 export default class ViewMyQuestionWithAnswersScreen extends Component {
 
     constructor(props) {
@@ -21,6 +20,7 @@ export default class ViewMyQuestionWithAnswersScreen extends Component {
             showModel: false,
             title: "",
             subtitle: "",
+            UserID: firebase.auth().currentUser?.uid,
         }
 
 
@@ -28,7 +28,8 @@ export default class ViewMyQuestionWithAnswersScreen extends Component {
 
     componentDidMount() {
         this.setState({
-            qID: this.props.route.params.data.key
+            qID: this.props.route.params.data.key,
+            UserID: firebase.auth().currentUser?.uid,
         }, () => {
             this.getQuestionList()
             this.getAnswer()
@@ -164,7 +165,7 @@ export default class ViewMyQuestionWithAnswersScreen extends Component {
             .remove()
             .then(() => {
                 database()
-                    .ref(`/userwisequestion/${UserID}/${this.props.route.params.data.key}`)
+                    .ref(`/userwisequestion/${this.state.UserID}/${this.props.route.params.data.key}`)
                     .remove()
                     .then(() => {
                         this.setState({

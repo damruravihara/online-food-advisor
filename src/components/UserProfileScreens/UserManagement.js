@@ -5,11 +5,15 @@ import { Button, Card, List } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 
-const UserID = firebase.auth().currentUser?.uid
-
 const UserManagement = ({ navigation }) => {
 
     const [userList, setUserList] = React.useState("");
+    const [UserID, setUserID] = React.useState(firebase.auth().currentUser?.uid);
+
+
+    useEffect(() => {
+        setUserID(firebase.auth().currentUser?.uid)
+    })
 
     useEffect(() => {
         const onValueChange = database()

@@ -11,7 +11,6 @@ const Filter = [
     }
 ]
 
-const UserID = firebase.auth().currentUser?.uid
 
 export default class QuestionsWithAnswers extends Component {
 
@@ -32,7 +31,8 @@ export default class QuestionsWithAnswers extends Component {
             },
             questionList: [],
             filteredQuestionList: [],
-            isExpanded: true
+            isExpanded: true,
+            UserID: firebase.auth().currentUser?.uid,
 
         }
 
@@ -40,6 +40,9 @@ export default class QuestionsWithAnswers extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            UserID: firebase.auth().currentUser?.uid
+        })
         this.getFilterList()
         this.getQuestionList()
 
@@ -57,7 +60,7 @@ export default class QuestionsWithAnswers extends Component {
 
     getQuestionList = () => {
         this.onValueChange = database()
-            .ref(`/answers/${UserID}`)
+            .ref(`/answers/${this.state.UserID}`)
             .on('value', snapshot => {
                 this.setState({
                     questionList: snapshot.val() !== null ? Object.values(snapshot.val()) : []
@@ -91,7 +94,7 @@ export default class QuestionsWithAnswers extends Component {
     }
 
     componentWillUnmount() {
-        database().ref(`/answers/${UserID}`).off('value', this.onValueChange)
+        database().ref(`/answers/${this.state.UserID}`).off('value', this.onValueChange)
         database().ref(`/categories`).off('value', this.onGetFilter)
 
 

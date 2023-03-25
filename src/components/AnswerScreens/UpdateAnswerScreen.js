@@ -6,8 +6,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 
-const UserID = firebase.auth().currentUser?.uid
-
 export default class UpdateAnswerScreen extends Component {
     constructor(props) {
         super(props);
@@ -20,19 +18,22 @@ export default class UpdateAnswerScreen extends Component {
             title: '',
             subtitle: '',
             showDeleteAlert: false,
-            allAnswerDetail: this.props.route.params.answer
+            allAnswerDetail: this.props.route.params.answer,
+            UserID: firebase.auth().currentUser?.uid,
 
         }
     }
 
     componentDidMount(){
-        console.log(this.state.question, "========================", this.state.answer, "------------------------------", this.state.allAnswerDetail)
+        this.setState({
+            UserID: firebase.auth().currentUser?.uid
+        })
     }
 
 
     onUpdate = () => {
         database()
-            .ref(`/answers/${UserID}/${this.props.route.params.question.key}`)
+            .ref(`/answers/${this.state.UserID}/${this.props.route.params.question.key}`)
             .update({
                 answer: this.state.answer,
             })
@@ -121,7 +122,7 @@ export default class UpdateAnswerScreen extends Component {
     onDelete =async() =>{
     
         await database()
-        .ref(`/answers/${UserID}/${this.props.route.params.question.key}`)
+        .ref(`/answers/${this.state.UserID}/${this.props.route.params.question.key}`)
         .remove()
         .then(() => {
             database()

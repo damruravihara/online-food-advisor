@@ -5,9 +5,6 @@ import { Button, Card, List } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 
-
-const UserID = firebase.auth().currentUser?.uid
-
 const adminMenu = [
     {
         id: 1, name: 'Update My Profile'
@@ -48,16 +45,19 @@ const MyProfileScreen = ({ navigation }) => {
     const [magDescription, setMsgDescriptopn] = React.useState("");
     const [dialogTitle, setDialogTitle] = React.useState("");
     const [dialogDescription, setDialogDescription] = React.useState("");
+    const [UserID, setUserID] = React.useState(firebase.auth().currentUser?.uid);
 
     useEffect(() => {
+        setUserID(firebase.auth().currentUser?.uid)
+
         const onValueChange = database()
             .ref(`/users/${UserID}`)
             .on('value', snapshot => {
-                setEmail(snapshot.val().Email)
-                setName(snapshot.val().Name)
-                setNumber(snapshot.val().number)
-                setRole(snapshot.val().role)
-                if (snapshot.val().role === 'admin') {
+                setEmail(snapshot.val()?.Email)
+                setName(snapshot.val()?.Name)
+                setNumber(snapshot.val()?.number)
+                setRole(snapshot.val()?.role)
+                if (snapshot.val()?.role === 'admin') {
                     setMenuList(adminMenu)
                 }
                 else {

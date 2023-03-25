@@ -8,17 +8,19 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useNavigation } from '@react-navigation/native';
 import { List, TextInput } from 'react-native-paper';
 
-const UserID = firebase.auth().currentUser?.uid
 
 const UpdateProfile = ({ navigation }) => {
 
     const [name, setName] = React.useState("");
     const [number, setNumber] = React.useState("");
     const [showModel, setShowModel] = React.useState("");
+    const [UserID, setUserID] = React.useState(firebase.auth().currentUser?.uid);
+
 
 
     useEffect(() => {
-       database()
+        setUserID(firebase.auth().currentUser?.uid)
+        database()
             .ref(`/users/${UserID}`)
             .once('value')
             .then(snapshot => {
@@ -42,12 +44,13 @@ const UpdateProfile = ({ navigation }) => {
                     number: number,
                 })
                 .then(() => {
-                    setShowModel(true)
-                    
-                    setTimeout(() => {
-                        setShowModel(false)
-                        navigation.goBack();
-                    }, 1000)
+                    ToastAndroid.show("Logout Success")
+                    // setShowModel(true)
+
+                    // setTimeout(() => {
+                    //     setShowModel(false)
+                    //     navigation.goBack();
+                    // }, 1000)
                 });
         }
     };
@@ -102,7 +105,7 @@ const UpdateProfile = ({ navigation }) => {
         <View style={{ flex: 1, width: "100%", height: "100%", backgroundColor: "#FBFCFC", paddingTop: StatusBar.currentHeight }}>
             <View style={{ width: '100%', flexDirection: 'row' }}>
                 <TouchableOpacity style={{ width: '13%', height: 70, alignItems: 'flex-end', justifyContent: 'center' }}
-                onPress={() => navigation.goBack()}
+                    onPress={() => navigation.goBack()}
                 >
                     <Ionicons color={"rgba(114, 120, 245, 1)"} size={26} name={"chevron-back"} />
                 </TouchableOpacity>
@@ -112,7 +115,7 @@ const UpdateProfile = ({ navigation }) => {
             </View>
             <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
                 <KeyboardAwareScrollView style={{ paddingStart: 14, paddingEnd: 14, marginBottom: 20 }}>
-                    <View style={{ marginTop: 15}}>
+                    <View style={{ marginTop: 15 }}>
                         <Text style={styles.input_lable}>Name</Text>
                         <TextInput
                             style={styles.input_text}

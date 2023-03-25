@@ -5,7 +5,6 @@ import { Button } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import { firebase } from '@react-native-firebase/auth';
 
-const UserID = firebase.auth().currentUser?.uid
 export default class ViewQuestionScreen extends Component {
 
     constructor(props) {
@@ -15,7 +14,8 @@ export default class ViewQuestionScreen extends Component {
             question: this.props.route.params.data,
             qID: '',
             answer: null,
-            isAnswerd: false
+            isAnswerd: false,
+            UserID: firebase.auth().currentUser?.uid,
 
         }
 
@@ -24,7 +24,8 @@ export default class ViewQuestionScreen extends Component {
 
     componentDidMount() {
         this.setState({
-            qID: this.props.route.params.data.key
+            qID: this.props.route.params.data.key,
+            UserID: firebase.auth().currentUser?.uid,
         },()=>{
             this.getQuestionList()
             this.getAnswer()
@@ -34,7 +35,7 @@ export default class ViewQuestionScreen extends Component {
 
     getAnswer = () => {
         this.onAnswerChange = database()
-        .ref(`/answers/${UserID}/${this.state.qID}`)
+        .ref(`/answers/${this.state.UserID}/${this.state.qID}`)
         .on('value', snapshot => {
             this.setState({
                 answer: snapshot.val()
@@ -57,7 +58,7 @@ export default class ViewQuestionScreen extends Component {
 
     componentWillUnmount() {
         database().ref(`/questions/${Number(this.state.qID)}`).off('value', this.onValueChange)
-        database().ref(`/answers/${UserID}/${this.state.qID}`).off('value', this.onAnswerChange)
+        database().ref(`/answers/${this.state.UserID}/${this.state.qID}`).off('value', this.onAnswerChange)
     }
 
     renderBottomButton = () => {

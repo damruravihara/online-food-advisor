@@ -9,8 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 import DropDownPicker from 'react-native-dropdown-picker';
 import moment from 'moment/moment';
 
-const UserID = firebase.auth().currentUser?.uid
-
 export default class UpdateMyQuestions extends Component {
 
 
@@ -23,16 +21,19 @@ export default class UpdateMyQuestions extends Component {
             description: this.props.route.params.question.description,
             category: [],
             selectedCategory: this.props.route.params.question.categoryName,
-            openPicker: false
+            openPicker: false,
+            UserID: firebase.auth().currentUser?.uid,
         }
 
 
     }
 
     componentDidMount() {
-        console.log(this.props.route.params.question)
-        this.getFilterList()
-
+        this.setState({
+            UserID: firebase.auth().currentUser?.uid
+        }, ()=>{
+            this.getFilterList()
+        })
     }
 
     componentWillUnmount() {
@@ -109,7 +110,7 @@ export default class UpdateMyQuestions extends Component {
             })
             .then(() => {
                 database()
-                    .ref(`/userwisequestion/${UserID}/${this.props.route.params.question.key}`)
+                    .ref(`/userwisequestion/${this.state.UserID}/${this.props.route.params.question.key}`)
                     .update({
                         categoryName: this.state.selectedCategory,
                         description: this.state.description,

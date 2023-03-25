@@ -41,7 +41,7 @@
   bridge.surfacePresenter = _bridgeAdapter.surfacePresenter;
 #endif
 
-  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"ruhunu-life", nil);
+  UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"Ruhunu Life", nil);
 
   if (@available(iOS 13.0, *)) {
     rootView.backgroundColor = [UIColor systemBackgroundColor];

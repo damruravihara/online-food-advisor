@@ -1,4 +1,4 @@
-import { FlatList, Image, ImageBackground, Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, ImageBackground, Modal, StatusBar, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Button, Card, List } from 'react-native-paper';
@@ -154,13 +154,14 @@ const MyProfileScreen = ({ navigation }) => {
             firebase.auth()
                 .signOut()
                 .then(() => {
-                    setDialogTitle('Success')
-                    setDialogDescription('You have Successfully Logout')
-                    setShowModel(true)
+                    // setDialogTitle('Success')
+                    // setDialogDescription('You have Successfully Logout')
+                    // setShowModel(true)
 
-                    setTimeout(() => {
-                        setShowModel(false)
-                    }, 1000)
+                    // setTimeout(() => {
+                    //     setShowModel(false)
+                    // }, 1000)
+                    ToastAndroid.show("logOut", ToastAndroid.SHORT)
                 })
 
         }

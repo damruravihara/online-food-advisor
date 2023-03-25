@@ -44,13 +44,12 @@ const UpdateProfile = ({ navigation }) => {
                     number: number,
                 })
                 .then(() => {
-                    ToastAndroid.show("Logout Success")
-                    // setShowModel(true)
+                    setShowModel(true)
 
-                    // setTimeout(() => {
-                    //     setShowModel(false)
-                    //     navigation.goBack();
-                    // }, 1000)
+                    setTimeout(() => {
+                        setShowModel(false)
+                        navigation.goBack();
+                    }, 1000)
                 });
         }
     };

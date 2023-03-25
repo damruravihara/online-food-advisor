@@ -89,7 +89,7 @@ export default class ViewQuestionScreen extends Component {
                         <Text style={{ color: 'rgba(114, 120, 245, 1)', fontWeight: 'bold', fontSize: 20, paddingStart: 5 }}>{this.state.isAnswerd ? 'Update  or  Delete Answer' : 'Give Answer'}</Text>
                     </View>
                 </View>
-                <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
+                <ImageBackground style={{ width: '100%', height: '100%' }} source={require('../../assests/Images/background.png')}>
                 <ScrollView style={{ paddingStart: 30, paddingEnd: 30, marginTop: 30, marginBottom: 20 }}>
                     <Text style={{ color: 'black', fontSize: 23, fontWeight: 'bold' }}>{this.state.question?.title}</Text>
                     <Text style={{ color: 'black', fontSize: 20, fontWeight: '500', marginTop: 25, lineHeight: 25 }}>{this.state.question? this.state.question.description : "" }</Text>

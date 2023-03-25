@@ -162,7 +162,7 @@ export default class AddNewQuestion extends Component {
                         <Text style={{ color: 'rgba(114, 120, 245, 1)', fontWeight: 'bold', fontSize: 20, paddingStart: 5 }}>{'Add New Question'}</Text>
                     </View>
                 </View>
-                <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
+                <ImageBackground style={{ width: '100%', height: '100%' }} source={require('../../assests/Images/background.png')}>
                     <KeyboardAwareScrollView style={{ paddingHorizontal: 20, marginBottom: 20 }}>
                         <View>
                             <Text style={styles.input_lable}>Category</Text>

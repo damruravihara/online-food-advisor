@@ -154,7 +154,7 @@ export default class AddAnswerScreen extends Component {
                         <Text style={{ color: 'rgba(114, 120, 245, 1)', fontWeight: 'bold', fontSize: 20, paddingStart: 5 }}>{'Submit Answer'}</Text>
                     </View>
                 </View>
-                <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
+                <ImageBackground style={{ width: '100%', height: '100%' }} sourImageBackgroundce={require('../../assests/Images/background.png')}>
                     <KeyboardAwareScrollView style={{ paddingStart: 14, paddingEnd: 14, marginBottom: 20 }}>
                         <View style={{ padding: 13, marginTop: 30, }}>
                             <Card elevation={4} style={{ backgroundColor: '#E7E7E7', borderRadius: 4 }}>

@@ -61,7 +61,7 @@ const UserManagement = ({ navigation }) => {
                     <Text style={{ color: 'rgba(114, 120, 245, 1)', fontWeight: 'bold', fontSize: 20, paddingStart: 5 }}>{'User Management'}</Text>
                 </View>
             </View>
-            <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
+            <ImageBackground style={{ width: '100%', height: '100%' }} source={require('../../assests/Images/background.png')}>
                 <FlatList
                     data={userList}
                     renderItem={userItm}

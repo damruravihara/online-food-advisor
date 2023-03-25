@@ -140,7 +140,7 @@ const MyProfileScreen = ({ navigation }) => {
                 setDialogTitle("Are you sure, Do You Want to Logout ?")
                 setShowDialog(true)
                 break;
-            case 5:
+            case 2:
                 setDialogTitle("Are you sure, Do You Want to Remove this Account ?")
                 setShowDialog(true)
                 break;

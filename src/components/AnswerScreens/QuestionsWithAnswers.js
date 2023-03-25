@@ -2,6 +2,7 @@ import { FlatList, Image, ImageBackground, SafeAreaView, StatusBar, Text, Toucha
 import React, { Component } from 'react'
 import { Card, Divider, List, Paragraph } from 'react-native-paper'
 import database from '@react-native-firebase/database';
+import { firebase } from '@react-native-firebase/auth';
 
 const Filter = [
     {
@@ -9,6 +10,8 @@ const Filter = [
         name: 'All'
     }
 ]
+
+const UserID = firebase.auth().currentUser?.uid
 
 export default class QuestionsWithAnswers extends Component {
 
@@ -54,7 +57,7 @@ export default class QuestionsWithAnswers extends Component {
 
     getQuestionList = () => {
         this.onValueChange = database()
-            .ref(`/answerwithquestion`)
+            .ref(`/answers/${UserID}`)
             .on('value', snapshot => {
                 this.setState({
                     questionList: snapshot.val() !== null ? Object.values(snapshot.val()) : []
@@ -73,7 +76,6 @@ export default class QuestionsWithAnswers extends Component {
                         this.setState({
                             filteredQuestionList: this.state.questionList
                         })
-                        console.log(this.state.questionList)
                     }
                 })
             })
@@ -89,7 +91,7 @@ export default class QuestionsWithAnswers extends Component {
     }
 
     componentWillUnmount() {
-        database().ref(`/answerwithquestion`).off('value', this.onValueChange)
+        database().ref(`/answers/${UserID}`).off('value', this.onValueChange)
         database().ref(`/categories`).off('value', this.onGetFilter)
 
 

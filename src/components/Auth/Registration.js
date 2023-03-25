@@ -39,7 +39,8 @@ const Registration = () => {
                         .set({
                             Name: name,
                             Email: email,
-                            numer: number
+                            number: number,
+                            role: "user"
                         })
                         .then(() => {
                             ToastAndroid.show("User account created & signed in!", ToastAndroid.SHORT);

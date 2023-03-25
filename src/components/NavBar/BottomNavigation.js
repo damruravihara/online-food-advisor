@@ -1,12 +1,15 @@
 import { Text, View } from 'react-native'
 import React, { Component } from 'react'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import TharushaRootNavigator from '../Tharusha/TharushaRootNavigator';
+import TharushaRootNavigator from '../AnswerScreens/TharushaRootNavigator';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import QuestionsWithAnswers from '../Tharusha/QuestionsWithAnswers';
+import QuestionsWithAnswers from '../AnswerScreens/QuestionsWithAnswers';
+import AddQuestionNavigation from '../QuestionScreens/AddQuestionNavigation';
+import AddNewQuestion from '../QuestionScreens/AddNewQuestion';
+import MyQuestions from '../QuestionScreens/MyQuestions';
 
 
 
@@ -33,15 +36,15 @@ export default class BottomNavigation extends Component {
                     name="QuestionsWithAnswers"
                     component={QuestionsWithAnswers}
                     options={{
-                        title: "Answers",
+                        title: "My Answers",
                         tabBarIcon: ({ color }) => (
                             <MaterialCommunityIcons name="format-list-numbered" color={color} size={26} />
                         ),
                     }}
                 />
                 <Tab.Screen
-                    name="TharushaRootNavigator1"
-                    component={TharushaRootNavigator}
+                    name="AddNewQuestion"
+                    component={AddNewQuestion}
                     options={{
                         title: "Add New",
                         tabBarIcon: ({ color }) => (
@@ -50,10 +53,10 @@ export default class BottomNavigation extends Component {
                     }}
                 />
                 <Tab.Screen
-                    name="TharushaRootNavigator2"
-                    component={TharushaRootNavigator}
+                    name="MyQuestions"
+                    component={MyQuestions}
                     options={{
-                        title: "Explore",
+                        title: "My Questions",
                         tabBarIcon: ({ color }) => (
                             <Zocial name="blogger" color={color} size={20} />
                         ),
@@ -64,7 +67,7 @@ export default class BottomNavigation extends Component {
                     name="TharushaRootNavigator4"
                     component={TharushaRootNavigator}
                     options={{
-                        title: "Home",
+                        title: "Profile",
                         tabBarIcon: ({ color }) => (
                             <FontAwesome name="user" color={color} size={26} />
                         ),

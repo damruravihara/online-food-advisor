@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ImageBackground, TextInput, ToastAndroid } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, TextInput, ToastAndroid, StyleSheet, StatusBar } from 'react-native'
 import React from 'react'
 // import { getAuth, signInWithEmailAndPassword } from "@react-native-firebase/auth";
 import auth from '@react-native-firebase/auth';

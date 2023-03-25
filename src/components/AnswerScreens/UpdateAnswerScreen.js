@@ -3,8 +3,10 @@ import React, { Component } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button, Card, List, TextInput } from 'react-native-paper'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { UserID } from '../../Constant';
 import database from '@react-native-firebase/database';
+import { firebase } from '@react-native-firebase/auth';
+
+const UserID = firebase.auth().currentUser?.uid
 
 export default class UpdateAnswerScreen extends Component {
     constructor(props) {
@@ -18,40 +20,51 @@ export default class UpdateAnswerScreen extends Component {
             title: '',
             subtitle: '',
             showDeleteAlert: false,
+            allAnswerDetail: this.props.route.params.answer
 
         }
+    }
+
+    componentDidMount(){
+        console.log(this.state.question, "========================", this.state.answer, "------------------------------", this.state.allAnswerDetail)
     }
 
 
     onUpdate = () => {
         database()
-            .ref(`/answers/${UserID}/${this.props.route.params.question.createdBy}`)
+            .ref(`/answers/${UserID}/${this.props.route.params.question.key}`)
             .update({
                 answer: this.state.answer,
             })
             .then(() => {
                 database()
-                .ref(`/answerwithquestion/${UserID + this.props.route.params.question.createdBy}`)
+                .ref(`/answerwithquestion/${this.state.allAnswerDetail.key}`)
                 .update({
                     answer: this.state.answer,
                 })
                 .then(() => {
-                    this.setState({
-                        title: 'Updated!',
-                        subtitle: 'Your Answer Updated Successfully'
-                    }, () => {
+                    database()
+                    .ref(`/questionwiseanswer/${this.props.route.params.question.key}/${this.state.allAnswerDetail.key}`)
+                    .update({
+                        answer: this.state.answer,
+                    }).then(() => {
                         this.setState({
-                            showModel: true
-                        })
-                    })
-                    setTimeout(() => {
-                        this.setState({
-                            showModel: false
+                            title: 'Updated!',
+                            subtitle: 'Your Answer Updated Successfully'
                         }, () => {
-                            // this.props.navigation.goBack()
-                            this.props.navigation.popToTop()
+                            this.setState({
+                                showModel: true
+                            })
                         })
-                    }, 1000)
+                        setTimeout(() => {
+                            this.setState({
+                                showModel: false
+                            }, () => {
+                                // this.props.navigation.goBack()
+                                this.props.navigation.popToTop()
+                            })
+                        }, 1000)
+                    })
                 })
                 .catch(err => console.log(err))
             })
@@ -108,30 +121,36 @@ export default class UpdateAnswerScreen extends Component {
     onDelete =async() =>{
     
         await database()
-        .ref(`/answers/${UserID}/${this.props.route.params.question.createdBy}`)
+        .ref(`/answers/${UserID}/${this.props.route.params.question.key}`)
         .remove()
         .then(() => {
             database()
-            .ref(`/answerwithquestion/${UserID + this.props.route.params.question.createdBy}`)
+            .ref(`/answerwithquestion/${this.state.allAnswerDetail.key}`)
             .remove()
             .then(() => {
-                this.setState({
-                    showDeleteAlert: false,
-                    title: 'Deleted!',
-                    subtitle: 'Your Answer Deleted Successfully'
-                }, () => {
+                database()
+                .ref(`/answerwithquestion/${this.state.allAnswerDetail.key}`)
+                .remove()
+                .then(() => {
                     this.setState({
-                        showModel: true
-                    })
-                })
-                setTimeout(() => {
-                    this.setState({
-                        showModel: false
+                        showDeleteAlert: false,
+                        title: 'Deleted!',
+                        subtitle: 'Your Answer Deleted Successfully'
                     }, () => {
-                        // this.props.navigation.goBack()
-                        this.props.navigation.popToTop()
+                        this.setState({
+                            showModel: true
+                        })
                     })
-                }, 1000)
+                    setTimeout(() => {
+                        this.setState({
+                            showModel: false
+                        }, () => {
+                            // this.props.navigation.goBack()
+                            this.props.navigation.popToTop()
+                        })
+                    }, 1000)
+                })
+                .catch(err => console.log(err))
             })
             .catch(err => console.log(err))
         })

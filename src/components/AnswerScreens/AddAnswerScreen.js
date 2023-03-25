@@ -4,7 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, Card, List, TextInput } from 'react-native-paper';
 import database from '@react-native-firebase/database';
-import { UserID } from '../../Constant';
+import { firebase } from '@react-native-firebase/auth';
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment/moment';
+
+
+const UserID = firebase.auth().currentUser?.uid
 
 export default class AddAnswerScreen extends Component {
 
@@ -23,16 +28,23 @@ export default class AddAnswerScreen extends Component {
     }
 
     onSubmit = async () => {
+        const key = uuidv4()
         database()
-            .ref(`/answers/${UserID}/${this.props.route.params.data.createdBy}`)
+            .ref(`/answers/${UserID}/${this.props.route.params.data.key}`)
             .set({
-                questionBy: this.props.route.params.data.createdBy,
-                answer: this.state.answer,
-                createdBy: UserID
+                    questionBy: this.props.route.params.data.createdBy,
+                    answer: this.state.answer,
+                    createdBy: UserID,
+                    question: this.props.route.params.data.createdBy,
+                    questionTitle: this.props.route.params.data.title,
+                    questionDescription: this.props.route.params.data.description,
+                    categoryName: this.props.route.params.data.categoryName,
+                    createdDate: moment(this.props.route.params.data.createdDate).format('MMMM Do YYYY, h:mm:ss a'),
+                    key: key
             })
             .then(() => {
                 database()
-                .ref(`/answerwithquestion/${UserID + this.props.route.params.data.createdBy}`)
+                .ref(`/answerwithquestion/${key}`)
                 .set({
                     questionBy: this.props.route.params.data.createdBy,
                     answer: this.state.answer,
@@ -40,19 +52,39 @@ export default class AddAnswerScreen extends Component {
                     question: this.props.route.params.data.createdBy,
                     questionTitle: this.props.route.params.data.title,
                     questionDescription: this.props.route.params.data.description,
-                    categoryName: this.props.route.params.data.categoryName
+                    questionKey: this.props.route.params.data.key,
+                    categoryName: this.props.route.params.data.categoryName,
+                    createdDate: this.props.route.params.data.createdDate,
+                    key: key
                 })
                 .then(() =>{
-                    this.setState({
-                        showModel: true
-                    })
-                    setTimeout(() => {
+                    database()
+                    .ref(`/questionwiseanswer/${this.props.route.params.data.key}/${key}`)
+                    .set({
+                        questionBy: this.props.route.params.data.createdBy,
+                        answer: this.state.answer,
+                        createdBy: UserID,
+                        question: this.props.route.params.data.createdBy,
+                        questionTitle: this.props.route.params.data.title,
+                        questionKey: this.props.route.params.data.key,
+                        questionDescription: this.props.route.params.data.description,
+                        categoryName: this.props.route.params.data.categoryName,
+                        createdDate: this.props.route.params.data.createdDate,
+                        key: key
+                    }).then(() =>{
                         this.setState({
-                            showModel: false
-                        },()=>{
-                            this.props.navigation.popToTop()
+                            showModel: true
                         })
-                    },1000)
+                        setTimeout(() => {
+                            this.setState({
+                                showModel: false
+                            },()=>{
+                                this.props.navigation.popToTop()
+                            })
+                        },1000)
+                    })
+                    .catch(err => console.log(err))
+
                 })
                 .catch(err => console.log(err))
             })

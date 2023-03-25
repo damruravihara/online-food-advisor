@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-paper';
 import database from '@react-native-firebase/database';
-import { UserID } from '../../Constant';
+import { firebase } from '@react-native-firebase/auth';
 
+const UserID = firebase.auth().currentUser?.uid
 export default class ViewQuestionScreen extends Component {
 
     constructor(props) {
@@ -12,7 +13,7 @@ export default class ViewQuestionScreen extends Component {
 
         this.state = {
             question: this.props.route.params.data,
-            qID: 0,
+            qID: '',
             answer: null,
             isAnswerd: false
 
@@ -22,9 +23,8 @@ export default class ViewQuestionScreen extends Component {
     }
 
     componentDidMount() {
-        
         this.setState({
-            qID: this.props.route.params.data.createdBy
+            qID: this.props.route.params.data.key
         },()=>{
             this.getQuestionList()
             this.getAnswer()
@@ -34,7 +34,7 @@ export default class ViewQuestionScreen extends Component {
 
     getAnswer = () => {
         this.onAnswerChange = database()
-        .ref(`/answers/${UserID}/${Number(this.state.qID)}`)
+        .ref(`/answers/${UserID}/${this.state.qID}`)
         .on('value', snapshot => {
             this.setState({
                 answer: snapshot.val()
@@ -47,7 +47,7 @@ export default class ViewQuestionScreen extends Component {
     }
     getQuestionList = () => {
         this.onValueChange = database()
-            .ref(`/questions/${Number(this.state.qID)}`)
+            .ref(`/questions/${this.state.qID}`)
             .on('value', snapshot => {
                 this.setState({
                     question: snapshot.val()
@@ -57,7 +57,7 @@ export default class ViewQuestionScreen extends Component {
 
     componentWillUnmount() {
         database().ref(`/questions/${Number(this.state.qID)}`).off('value', this.onValueChange)
-        database().ref(`/questions/${Number(this.state.qID)}`).off('value', this.onAnswerChange)
+        database().ref(`/answers/${UserID}/${this.state.qID}`).off('value', this.onAnswerChange)
     }
 
     renderBottomButton = () => {
@@ -90,8 +90,8 @@ export default class ViewQuestionScreen extends Component {
                 </View>
                 <ImageBackground style={{ width: '100%', height: '90%' }} source={require('../../assests/Images/background.png')}>
                 <ScrollView style={{ paddingStart: 30, paddingEnd: 30, marginTop: 30, marginBottom: 20 }}>
-                    <Text style={{ color: 'black', fontSize: 23, fontWeight: 'bold' }}>{this.state.question.title}</Text>
-                    <Text style={{ color: 'black', fontSize: 20, fontWeight: '500', marginTop: 25, lineHeight: 25 }}>{this.state.question.description }</Text>
+                    <Text style={{ color: 'black', fontSize: 23, fontWeight: 'bold' }}>{this.state.question?.title}</Text>
+                    <Text style={{ color: 'black', fontSize: 20, fontWeight: '500', marginTop: 25, lineHeight: 25 }}>{this.state.question? this.state.question.description : "" }</Text>
                     <View style={{ width: '100%', alignItems: 'flex-end', paddingTop: 20,marginBottom: 10}}>
                     {this.renderBottomButton()}
                     </View>

@@ -12,11 +12,11 @@ import {
     Provider as PaperProvider, TextInput, Searchbar
 } from 'react-native-paper';
 import merge from 'deepmerge';
-import TharushaRootNavigator from '../components/Tharusha/TharushaRootNavigator';
 import BottomNavigation from '../components/NavBar/BottomNavigation';
 import auth from '@react-native-firebase/auth';
 import Registration from '../components/Auth/Registration';
 import Login from '../components/Auth/Login';
+import AddQuestionNavigation from '../components/QuestionScreens/AddQuestionNavigation';
 
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
@@ -54,7 +54,7 @@ export default class RootNavigator extends Component {
                         <NavigationContainer theme={CombinedDefaultTheme}>
                             <Stack.Navigator screenOptions={{ headerShown: false }}>
                                 <Stack.Screen name='BottomNavigation' component={BottomNavigation} />
-                                {/* <Stack.Screen name="TharushaRootNavigator" component={TharushaRootNavigator} /> */}
+                                <Stack.Screen name="AddQuestionNavigation" component={AddQuestionNavigation} />
                             </Stack.Navigator>
                         </NavigationContainer>
                     </PaperProvider>
